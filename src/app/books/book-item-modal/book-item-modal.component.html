@@ -1,0 +1,36 @@
+<div class="backdrop"></div>
+<kendo-window class="alert-box" title="Add new book" [minWidth]="350" [width]="650" (close)="onClose()">
+    <form class="k-form" [formGroup]="bookForm">
+        <fieldset>
+            <legend>Book Details</legend>
+            <label class="k-form-field">
+                <span>Book Name</span>
+                <input kendoTextBox class="k-textbox" placeholder="Book Name" formControlName="bookName"/>
+                <span *ngIf="!bookForm.get('bookName').valid && bookForm.get('bookName').touched" class="error-message">Book name is required</span>
+            </label>
+            <label class="k-form-field">
+                <span>Author</span>
+                <input kendoTextBox class="k-textbox" placeholder="Author" formControlName="author" />
+                <span *ngIf="!bookForm.get('author').valid && bookForm.get('author').touched" class="error-message">Author name is required</span>
+            </label>
+            <label class="k-form-field">
+                <span>Description</span>
+                <textarea kendoTextArea class="k-textbox textarea" placeholder="Description" formControlName="description"></textarea>
+                <span *ngIf="!bookForm.get('description').valid && bookForm.get('description').touched" class="error-message">Maximum length is 180 characters</span>
+            </label>
+            <label class="k-form-field">
+                <span>Genre</span>
+                <kendo-dropdownlist [data]="genres" formControlName="genre"></kendo-dropdownlist>
+                <span *ngIf="!bookForm.get('genre').valid && bookForm.get('genre').touched" class="error-message">Genre is required</span>
+            </label>
+            <label class="k-form-field">
+                <span>Publish Date</span>
+                <kendo-datepicker formControlName="date" [max]="maxDate"></kendo-datepicker>
+            </label>
+        </fieldset>
+        <div class="right">
+            <button type="button" class="k-button" (click)="onClose()">Cancel</button>
+            <button type="button" class="k-button k-primary" (click)="onSubmit()" [disabled]="bookForm.invalid">Submit</button>
+        </div>
+    </form>
+</kendo-window>

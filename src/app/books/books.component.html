@@ -1,0 +1,28 @@
+<div class="grid-wrapper">
+    <kendo-grid
+        [kendoGridBinding]="books"
+        [height]="510"
+        [filterable]="true"
+        [pageable]="true"
+        [pageSize]="10"
+    >
+        <ng-template kendoGridToolbarTemplate>
+            <button [primary]="true" kendoGridAddCommand (click)="open()">Add New Book</button>
+            <app-book-item-modal *ngIf="isOpenModal" (onCloseModal)="close()" [editableItem]="editableItem"></app-book-item-modal>
+        </ng-template>
+        <kendo-grid-column *ngFor="let col of columns" [field]="col.field" [title]="col.title"></kendo-grid-column>
+        <kendo-grid-column field="date" title="Publish Date" width="240" filter="date">
+            <ng-template kendoGridCellTemplate let-dataItem>
+                {{dataItem.date | date: 'MM/d/yyyy'}}
+            </ng-template>
+        </kendo-grid-column>
+        <kendo-grid-command-column title="Actions" width="220"  >
+            <ng-template kendoGridCellTemplate let-isNew="isNew" let-dataItem>
+                <button kendoGridEditCommand [primary]="true" (click)="editItem(dataItem)">Edit</button>
+                <button kendoGridRemoveCommand (click)="removeItem(dataItem.key)">Remove</button>
+            </ng-template>
+        </kendo-grid-command-column>
+    </kendo-grid>
+    <div *ngIf="isLoading" class="k-i-loading"></div>
+</div>
+
