@@ -13,7 +13,7 @@ export class BookItemModalComponent implements OnInit {
     @Output() onCloseModal = new EventEmitter();
     @Input() editableItem: IBook;
     bookForm: FormGroup;
-    genres: Array = [
+    genres = [
         'Science Fiction',
         'Fantasy',
         'Drama',
